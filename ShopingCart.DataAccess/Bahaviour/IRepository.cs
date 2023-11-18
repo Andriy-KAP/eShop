@@ -13,5 +13,6 @@ namespace ShopingCart.DataAccess.Bahaviour
         Task Delete(T entity);
         Task<T> Find(int id);
         IQueryable<T> GetAll();
+        IQueryable<T> GetPaginatedCollection<TKey>(Func<T,TKey> sortBy, Func<T,bool> filter, int page, int pageSize);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopingCart.DataAccess.Bahaviour;
+using ShopingCart.DataAccess.Extension;
 using ShopingCart.Domain.Core;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,11 @@ namespace ShopingCart.DataAccess.Core
         public IQueryable<T> GetAll()
         {
             return _set.AsQueryable<T>();
+        }
+
+        public IQueryable<T> GetPaginatedCollection<TKey>(Func<T, TKey> sortBy, Func<T, bool> filter, int page, int pageSize)
+        {
+            return _set.AsQueryable<T>().Paginate<T,TKey>(sortBy, page, pageSize);
         }
     }
 }

@@ -3,9 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using ShopingCart.BusinessLogic.Behaviour;
 using ShopingCart.BusinessLogic.DTO;
 using ShopingCart.DataAccess.Bahaviour;
+using ShopingCart.DataAccess.Extension;
 using ShopingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Text.Json;
 
 namespace ShopingCart.BusinessLogic.Service
 {
@@ -42,6 +46,13 @@ namespace ShopingCart.BusinessLogic.Service
         {
             ShopingCart.Domain.Models.ShopingCart targetCart = await _repository.Find(id);
             await _repository.Delete(targetCart);
+        }
+
+        public IEnumerable<ShopingCartDTO> GetShopingCarts(int page, int count, string filter, string orderBy)
+        {
+            var result =  _repository.GetAll().Search(filter).Paginate(_ => _.Date, page, count);
+
+            return _mapper.Map<IEnumerable<ShopingCartDTO>>(result);
         }
     }
 }

@@ -13,5 +13,6 @@ namespace ShopingCart.BusinessLogic.Behaviour
         Task EditShopingCart(ShopingCartDTO shopingCart);
         Task RemoveShopingCart(int id);
         Task<IEnumerable<ShopingCartDTO>> GetShopingCart(int userId);
+        IEnumerable<ShopingCartDTO> GetShopingCarts(int page, int count, string filter, string orderBy);
     }
 }
