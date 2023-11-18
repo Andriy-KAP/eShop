@@ -48,9 +48,9 @@ namespace ShopingCart.BusinessLogic.Service
             await _repository.Delete(targetCart);
         }
 
-        public IEnumerable<ShopingCartDTO> GetShopingCarts(int page, int count, string filter, string orderBy)
+        public IEnumerable<ShopingCartDTO> GetShopingCarts(int userId, int page, int count, string filter, string orderBy)
         {
-            var result =  _repository.GetAll().Search(filter).Paginate(_ => _.Date, page, count);
+            var result =  _repository.GetAll().Where(_=>_.UserId == userId).Search(filter).Paginate(_ => _.Date, page, count);
 
             return _mapper.Map<IEnumerable<ShopingCartDTO>>(result);
         }

@@ -10,10 +10,11 @@ namespace ShopingCart.Modules
         public ShopingCartModule(IShopingCartService _shopingCartService) : base("/shopingcart")
         {
             shopingCartService = _shopingCartService;
-            Get("/{userId:int}", async (parameters) => { return await GetUserShopingCart(parameters.userId); });
-            Get("/{page:int}/{count:int}/{filter}/{sortBy}", async (parameters) =>
-            {
-                return GetPaginatedCollection(parameters.page, parameters.count, parameters.filter, parameters.sortBy);
+            Get("/{userId:int}", async (parameters) => {
+                int.TryParse(Request.Query.page.Value, out int page);
+                int.TryParse(Request.Query.count.Value, out int count);
+                return GetPaginatedCollection(parameters.userId,
+                    page, count, Request.Query.filter.Value, Request.Query.orderBy.Value);
             });
         }
 
@@ -37,9 +38,9 @@ namespace ShopingCart.Modules
             await shopingCartService.RemoveShopingCart(id);
         }
 
-        private IEnumerable<ShopingCartDTO> GetPaginatedCollection(int page, int count, string filter, string orderBy)
+        private IEnumerable<ShopingCartDTO> GetPaginatedCollection(int userId, int page, int count, string filter, string orderBy)
         {
-            return  shopingCartService.GetShopingCarts(page, count, filter, orderBy);
+            return  shopingCartService.GetShopingCarts(userId, page, count, filter, orderBy);
         }
     }
 }

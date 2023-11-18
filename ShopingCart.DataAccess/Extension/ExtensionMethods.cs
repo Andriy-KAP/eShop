@@ -21,6 +21,10 @@ namespace ShopingCart.DataAccess.Extension
         public static IQueryable<T> Search<T>(this IQueryable<T> query, string filters)
         {
             IEnumerable<SearchModel> filterResult = JsonSerializer.Deserialize<IEnumerable<SearchModel>>(filters);
+            if(filterResult.Count() == 0)
+            {
+                return query;
+            }
             Expression? body = null;
             var param = Expression.Parameter(typeof(T), "_");
             foreach (var item in filterResult)
