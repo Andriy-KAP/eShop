@@ -1,4 +1,4 @@
-﻿using ShopingCart.Domain.Core;
+﻿using eShop.Common.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;

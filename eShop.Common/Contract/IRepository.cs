@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopingCart.DataAccess.Bahaviour
+namespace eShop.Common.Contract
 {
     public interface IRepository<T> where T : class
     {
@@ -13,6 +13,5 @@ namespace ShopingCart.DataAccess.Bahaviour
         Task Delete(T entity);
         Task<T> Find(int id);
         IQueryable<T> GetAll();
-        IQueryable<T> GetPaginatedCollection<TKey>(Func<T,TKey> sortBy, Func<T,bool> filter, int page, int pageSize);
     }
 }

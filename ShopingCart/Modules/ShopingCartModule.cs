@@ -1,4 +1,5 @@
 ﻿using Nancy;
+using Nancy.ModelBinding;
 using ShopingCart.BusinessLogic.Behaviour;
 using ShopingCart.BusinessLogic.DTO;
 
@@ -16,6 +17,12 @@ namespace ShopingCart.Modules
                 return GetPaginatedCollection(parameters.userId,
                     page, count, Request.Query.filter.Value, Request.Query.orderBy.Value);
             });
+            //Post("/{userId:int}", async (parameters, _) =>
+            //{
+                //var productIds = this.Bind<int[]>();
+                //int.TryParse(parameters.userId, out int userId);
+
+            //});
         }
 
         private async Task<IEnumerable<ShopingCartDTO>> GetUserShopingCart(int userId)

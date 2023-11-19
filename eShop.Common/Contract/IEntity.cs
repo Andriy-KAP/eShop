@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopingCart.Domain.Core
+namespace eShop.Common.Contract
 {
     public interface IEntity
     {

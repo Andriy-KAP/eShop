@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using eShop.Common.Contract;
 using Microsoft.EntityFrameworkCore;
 using ShopingCart.BusinessLogic.Behaviour;
 using ShopingCart.BusinessLogic.DTO;
-using ShopingCart.DataAccess.Bahaviour;
 using ShopingCart.DataAccess.Extension;
 using ShopingCart.Domain.Models;
 using System;

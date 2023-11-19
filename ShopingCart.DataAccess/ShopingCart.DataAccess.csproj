@@ -12,7 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\eShop.Common\eShop.Common.csproj" />
     <ProjectReference Include="..\ShopingCart.Domain\ShopingCart.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Bahaviour\" />
   </ItemGroup>
 
 </Project>
