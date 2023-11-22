@@ -15,6 +15,9 @@ namespace ShopingCart.BusinessLogic
         {
             CreateMap<ShopingCart.Domain.Models.ShopingCart, ShopingCart.BusinessLogic.DTO.ShopingCartDTO>();
             CreateMap<ShopingDetails, ShopingCart.BusinessLogic.DTO.ShopingDetailsDTO>();
+
+            CreateMap<ShopingCart.BusinessLogic.DTO.ShopingCartDTO, ShopingCart.Domain.Models.ShopingCart>();
+            CreateMap<ShopingCart.BusinessLogic.DTO.ShopingDetailsDTO, ShopingDetails>();
         }
     }
 }

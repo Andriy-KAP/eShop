@@ -5,6 +5,7 @@ using Nancy;
 using Nancy.Configuration;
 using Nancy.TinyIoc;
 using ShopingCart.BusinessLogic.Behaviour;
+using ShopingCart.BusinessLogic.DataRequest;
 using ShopingCart.BusinessLogic.Service;
 using ShopingCart.DataAccess.Core;
 

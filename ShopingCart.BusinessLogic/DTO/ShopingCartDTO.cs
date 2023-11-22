@@ -11,6 +11,11 @@ namespace ShopingCart.BusinessLogic.DTO
         public int Id { get; set; }
         public int UserId { get; set; }
         public DateTime Date { get; set; }
-        public IEnumerable<ShopingDetailsDTO> ShopingDetails { get; set; }
+        public List<ShopingDetailsDTO> ShopingDetails { get; set; }
+
+        public ShopingCartDTO()
+        {
+            ShopingDetails= new List<ShopingDetailsDTO>();
+        }
     }
 }
