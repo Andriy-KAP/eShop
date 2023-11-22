@@ -23,10 +23,10 @@ namespace ShopingCart.Modules
             });
             Post("/{userId:int}", async (parameters, _) =>
             {
-                var newShopingCart = this.Bind<NewShopingCartModel>();
+                var newShopingCart = this.Bind<NewShopingCartModel[]>();
                 int.TryParse(parameters.userId, out int userId);
-                var products = await GetProductsByIds(newShopingCart.ProductIds);
-                await AddShopingCart(products, userId);
+                var products = await GetProductsByIds(newShopingCart.Select(_=>_.ProductId).ToArray<int>());
+                await AddShopingCart(products.ToList(), newShopingCart.Select(_=>_.Count).ToArray<int>(), userId);
                 return StatusCodes.Status200OK;
             });
         }
@@ -36,15 +36,15 @@ namespace ShopingCart.Modules
             return await shopingCartService.GetShopingCart(userId);
         }
 
-        private async Task AddShopingCart(IEnumerable<ProductCatalogProduct> products, int userId)
+        private async Task AddShopingCart(List<ProductCatalogProduct> products, int[] countArray ,int userId)
         {
             var shopingDetails = new List<ShopingDetailsDTO>();
-            foreach (var item in products)
+            for (int i=0; i <= products.Count() -1; i++)
             {
                 shopingDetails.Add(new ShopingDetailsDTO
                 {
-                    Count = 1,
-                    ProductId = item.Id
+                    Count = countArray[i],
+                    ProductId = products[i].Id,
                 });
             }
 
