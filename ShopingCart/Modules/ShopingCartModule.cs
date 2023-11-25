@@ -16,18 +16,61 @@ namespace ShopingCart.Modules
         {
             shopingCartService = _shopingCartService;
             Get("/{userId:int}", async (parameters) => {
-                int.TryParse(Request.Query.page.Value, out int page);
-                int.TryParse(Request.Query.count.Value, out int count);
-                return GetPaginatedCollection(parameters.userId,
-                    page, count, Request.Query.filter.Value, Request.Query.orderBy.Value);
+                try
+                {
+
+                    int.TryParse(Request.Query.page.Value, out int page);
+                    int.TryParse(Request.Query.count.Value, out int count);
+                    return GetPaginatedCollection(parameters.userId,
+                        page, count, Request.Query.filter.Value, Request.Query.orderBy.Value);
+                }
+                catch(Exception ex)
+                {
+                    return StatusCodes.Status500InternalServerError;
+                }
             });
             Post("/{userId:int}", async (parameters, _) =>
             {
-                var newShopingCart = this.Bind<NewShopingCartModel[]>();
-                int.TryParse(parameters.userId, out int userId);
-                var products = await GetProductsByIds(newShopingCart.Select(_=>_.ProductId).ToArray<int>());
-                await AddShopingCart(products.ToList(), newShopingCart.Select(_=>_.Count).ToArray<int>(), userId);
-                return StatusCodes.Status200OK;
+                try
+                {
+                    var newShopingCart = this.Bind<NewShopingCartModel[]>();
+                    int.TryParse(parameters.userId, out int userId);
+                    var products = await GetProductsByIds(newShopingCart.Select(_ => _.ProductId).ToArray<int>());
+                    await AddShopingCart(products.ToList(), newShopingCart.Select(_ => _.Count).ToArray<int>(), userId);
+                    return StatusCodes.Status200OK;
+                }
+                catch(Exception ex)
+                {
+                    return StatusCodes.Status500InternalServerError;
+                }
+            });
+            Post("/update", async (parameters, _) =>
+            {
+                try
+                {
+                    var newShopingCart = this.Bind<ShopingCartDTO>();
+                    if(newShopingCart != null)
+                    {
+                        await UpdateShopingCart(newShopingCart);
+                    }
+                    return StatusCodes.Status400BadRequest;
+                }
+                catch (Exception ex)
+                {
+                    return StatusCodes.Status500InternalServerError;
+                }
+            });
+            Delete("/remove/{cartId:int}", (parameters) =>
+            {
+                try
+                {
+                    RemoveShopingCart(parameters.cartId);
+                    return StatusCodes.Status200OK;
+                }
+                catch(Exception ex)
+                {
+                    return StatusCodes.Status500InternalServerError;
+                }
             });
         }
 
@@ -54,9 +97,6 @@ namespace ShopingCart.Modules
                 UserId = userId,
                 ShopingDetails= shopingDetails
             };
-
-            
-            
             await shopingCartService.AddShopingCart(shopingCart);
         }
 

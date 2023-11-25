@@ -43,7 +43,8 @@ namespace eShop.Common.Repository_
 
         public async Task Update(T entity)
         {
-            _context.Entry<T>(entity).State= EntityState.Modified;
+            _context.Set<T>().Update(entity);
+            //_context.Entry<T>(entity).State= EntityState.Modified;
             await _context.SaveChangesAsync();
         }
     }
