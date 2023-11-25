@@ -12,7 +12,7 @@ namespace ShopingCart.DataAccess.Core.Configuration
     {
         public void Configure(EntityTypeBuilder<ShopingCart.Domain.Models.ShopingCart> builder)
         {
-            builder.Property(_ => _.Date).HasDefaultValueSql("GETUTCDATE");
+            builder.Property(_ => _.Date).HasDefaultValueSql("GETUTCDATE()");
         }
     }
 }
