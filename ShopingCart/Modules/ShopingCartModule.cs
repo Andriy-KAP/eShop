@@ -93,7 +93,6 @@ namespace ShopingCart.Modules
 
             var shopingCart = new ShopingCartDTO
             {
-                Date = DateTime.UtcNow,
                 UserId = userId,
                 ShopingDetails= shopingDetails
             };

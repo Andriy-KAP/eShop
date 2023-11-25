@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using ShopingCart.DataAccess.Core.Configuration;
+using ShopingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +17,18 @@ namespace ShopingCart.DataAccess.Core
 
         public ShopingCartContext(DbContextOptions<ShopingCartContext> options):base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
             
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ShopingCartConfiguration());
+            modelBuilder.ApplyConfiguration(new ShopingCartDetailsConfiguration());
         }
     }
 }
